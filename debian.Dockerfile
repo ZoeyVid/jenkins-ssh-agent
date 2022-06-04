@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bullseye-20220527-slim
 
 ARG user=jenkins \
     group=jenkins \
