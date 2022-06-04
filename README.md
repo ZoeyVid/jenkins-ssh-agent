@@ -1,6 +1,6 @@
 # jenkins-ssh-agent
 
-Paths:
+## Paths:
 - /usr/bin/git
 - /usr/bin/git-lfs
 - /usr/bin/mvn
