@@ -37,11 +37,12 @@ RUN rm /etc/apt/sources.list && \
                                                            ca-certificates \
                                                            netcat-traditional \
                                                            java-1.8.0-amazon-corretto-jdk \
+                                                           java-11-amazon-corretto-jdk
                                                            java-15-amazon-corretto-jdk \
                                                            java-16-amazon-corretto-jdk \
                                                            java-17-amazon-corretto-jdk \
                                                            java-18-amazon-corretto-jdk && \
-    apt -o DPkg::Options::="--force-confnew" -y install -y java-11-amazon-corretto-jdk
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999
 
 # Create User
 RUN groupadd -g ${gid} ${group} && \
