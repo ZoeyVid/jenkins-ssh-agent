@@ -10,7 +10,8 @@ ENV JENKINS_AGENT_HOME=/home/${user}
 # Install Java and git
 RUN wget -O /etc/apk/keys/amazoncorretto.rsa.pub https://apk.corretto.aws/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" >> /etc/apk/repositories && \
-    apk add --no-cache bash \
+    apk add --no-cache maven \
+                       bash \
                        git \
                        git-lfs \
                        openssh \
