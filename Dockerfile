@@ -42,10 +42,10 @@ RUN rm /etc/apt/sources.list && \
                                                            java-16-amazon-corretto-jdk \
                                                            java-17-amazon-corretto-jdk \
                                                            java-18-amazon-corretto-jdk && \
-    update-alternatives --install  /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999 && \
+    update-alternatives --install  /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999
 
 # Create User
-    groupadd -g ${gid} ${group} && \
+RUN groupadd -g ${gid} ${group} && \
     useradd -d "${JENKINS_AGENT_HOME}" -u "${uid}" -g "${gid}" -m -s /bin/bash "${user}" && \
 
 # setup SSH server
@@ -58,7 +58,8 @@ RUN rm /etc/apt/sources.list && \
     mkdir /var/run/sshd && \
     mkdir ${JENKINS_AGENT_HOME}/.ssh && \
     echo "PATH=${PATH}" >> ${JENKINS_AGENT_HOME}/.ssh/environment && \
-    curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd
+    curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
+    chmox +x /usr/local/bin/setup-sshd
 
 WORKDIR "${JENKINS_AGENT_HOME}"
 ENTRYPOINT ["setup-sshd"]
