@@ -23,9 +23,9 @@ RUN wget -O /etc/apk/keys/amazoncorretto.rsa.pub https://apk.corretto.aws/amazon
                        amazon-corretto-16 \
                        amazon-corretto-17 \
                        amazon-corretto-18 && \
-                       rm -rf /var/cache/apk/* && \
+                       rm -rf /var/cache/apk/*
 # Create User
-    mkdir -p "${JENKINS_AGENT_HOME}/.ssh/" && \
+RUN mkdir -p "${JENKINS_AGENT_HOME}/.ssh/" && \
     addgroup -g "${gid}" "${group}" && \
     adduser -h "${JENKINS_AGENT_HOME}" -u "${uid}" -G "${group}" -s /bin/bash -D "${user}" && \
     passwd -u "${user}" && \
