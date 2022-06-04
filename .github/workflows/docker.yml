@@ -4,10 +4,14 @@ on:
   push:
     paths:
       - Dockerfile
+      - amd64.Dockerfile
+      - arm64.Dockerfile
       - .github/workflows/docker.yml
   pull_request:
     paths:
       - Dockerfile
+      - amd64.Dockerfile
+      - arm64.Dockerfile
       - .github/workflows/docker.yml
   workflow_dispatch:
 
@@ -45,16 +49,27 @@ jobs:
           restore-keys: |
             buildx-${{ secrets.CACHE_ID }}-
           
-      - name: Build
+      - name: Build amd64
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64 #,linux/amd64/v2,linux/amd64/v3,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
+          file: ./amd64.Dockerfile
+          platforms: linux/amd64,linux/amd64/v2,linux/amd64/v3 #,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }},${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}-amd64
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          
+
+      - name: Build arm64
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./arm64.Dockerfile
+          platforms: linux/arm64 #,linux/amd64,linux/amd64/v2,linux/amd64/v3,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}-arm64
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
       - name: show version
         run: docker run --rm --entrypoint java ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }} --version
