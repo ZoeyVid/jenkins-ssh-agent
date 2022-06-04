@@ -1,18 +1,14 @@
-name: Docker CI
+name: Docker Debian CI
 
 on:
   push:
     paths:
-      - Dockerfile
-      - alpine.Dockerfile
       - debian.Dockerfile
-      - .github/workflows/docker.yml
+      - .github/workflows/docker-debian.yml
   pull_request:
     paths:
-      - Dockerfile
-      - alpine.Dockerfile
       - debian.Dockerfile
-      - .github/workflows/docker.yml
+      - .github/workflows/docker-debian.yml
   workflow_dispatch:
 
 jobs:
@@ -45,22 +41,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
-          key: buildx-${{ secrets.CACHE_ID }}-${{ github.sha }}
+          key: buildx-debian-${{ secrets.CACHE_ID }}-${{ github.sha }}
           restore-keys: |
-            buildx-${{ secrets.CACHE_ID }}-
-          
-      - name: Build alpine
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./alpine.Dockerfile
-          platforms: linux/amd64,linux/amd64/v2,linux/amd64/v3 #,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}-alpine
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+            buildx-debian-${{ secrets.CACHE_ID }}-
 
-      - name: Build debian
+      - name: Build
         uses: docker/build-push-action@v3
         with:
           context: .
