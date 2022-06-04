@@ -3,10 +3,9 @@ FROM alpine
 ARG user=jenkins \
     group=jenkins \
     uid=1000 \
-    gid=1000 \
-    JENKINS_AGENT_HOME=/home/${user}
+    gid=1000
 
-ENV JENKINS_AGENT_HOME ${JENKINS_AGENT_HOME}
+ENV JENKINS_AGENT_HOME=/home/${user}
 
 # Install Java and git
 RUN wget -O /etc/apk/keys/amazoncorretto.rsa.pub https://apk.corretto.aws/amazoncorretto.rsa.pub && \
