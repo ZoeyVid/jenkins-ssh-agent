@@ -59,7 +59,7 @@ RUN groupadd -g ${gid} ${group} && \
     mkdir ${JENKINS_AGENT_HOME}/.ssh && \
     echo "PATH=${PATH}" >> ${JENKINS_AGENT_HOME}/.ssh/environment && \
     curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
-    chmox +x /usr/local/bin/setup-sshd
+    chmod +x /usr/local/bin/setup-sshd
 
 WORKDIR "${JENKINS_AGENT_HOME}"
 ENTRYPOINT ["setup-sshd"]
