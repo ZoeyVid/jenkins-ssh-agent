@@ -39,7 +39,8 @@ RUN mkdir -p "${JENKINS_AGENT_HOME}/.ssh/" && \
         -e 's/#PermitUserEnvironment.*/PermitUserEnvironment yes/' && \
     mkdir /var/run/sshd && \
     echo "PATH=${PATH}" >> ${JENKINS_AGENT_HOME}/.ssh/environment && \
-    wget -O /usr/local/bin/setup-sshd https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd
+    wget -O /usr/local/bin/setup-sshd https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
+    chmod +x /usr/local/bin/setup-sshd
 
 WORKDIR "${JENKINS_AGENT_HOME}"
 ENTRYPOINT ["setup-sshd"]
