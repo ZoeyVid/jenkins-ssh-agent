@@ -22,10 +22,7 @@ jobs:
            curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 -o ./regctl
            chmod +x ./regctl
            ./regctl image copy ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }} ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest
-           ./regctl image copy ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }} ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:amd64
-           ./regctl image copy ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }} ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest-amd64
-           ./regctl image copy ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}-arm64 ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:arm64
-           ./regctl image copy ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}-arm64 ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest-arm64
+           ./regctl image copy ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}-alpine ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:alpine
 
       - name: show version
         run: docker run --rm --entrypoint java ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest --version
