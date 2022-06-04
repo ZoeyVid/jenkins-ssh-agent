@@ -21,7 +21,7 @@ RUN rm /etc/apt/sources.list && \
     apt autoremove --purge -y && \
     apt autoclean -y && \
     apt clean -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install curl ca-certificates apt-utils && \
+    apt -o DPkg::Options::="--force-confnew" -y install curl gnupg ca-certificates apt-utils && \
     curl https://apt.corretto.aws/corretto.key | apt-key add - && \
     echo "deb https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
     apt update -y && \
