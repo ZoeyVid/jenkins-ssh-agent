@@ -40,8 +40,8 @@ RUN rm /etc/apt/sources.list && \
                                                            java-11-amazon-corretto-jdk \
                                                            java-15-amazon-corretto-jdk \
                                                            java-16-amazon-corretto-jdk \
-                                                           java-17-amazon-corretto-jdk \
-                                                           java-18-amazon-corretto-jdk && \
+                                                           java-18-amazon-corretto-jdk \
+                                                           java-17-amazon-corretto-jdk && \
     update-alternatives --install  /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999
 
 # Create User
