@@ -4,7 +4,8 @@ ARG user=jenkins \
     group=jenkins \
     uid=1000 \
     gid=1000
-ENV JENKINS_AGENT_HOME=/home/${user}
+ENV JENKINS_AGENT_HOME=/home/${user} \
+    LANG='C.UTF-8' LC_ALL='C.UTF-8'
 
 # Requirements
 ENV DEBIAN_FRONTEND=noninteractive
@@ -55,9 +56,9 @@ RUN rm /etc/apt/sources.list && \
         -e 's/#SyslogFacility.*/SyslogFacility AUTH/' \
         -e 's/#LogLevel.*/LogLevel INFO/' && \
     mkdir /var/run/sshd && \
+    mkdir ${JENKINS_AGENT_HOME}/.ssh && \
     echo "PATH=${PATH}" >> ${JENKINS_AGENT_HOME}/.ssh/environment && \
-    wget -O /usr/local/bin/setup-sshd https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd
+    curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd
 
 WORKDIR "${JENKINS_AGENT_HOME}"
-ENV LANG='C.UTF-8' LC_ALL='C.UTF-8'
 ENTRYPOINT ["setup-sshd"]
