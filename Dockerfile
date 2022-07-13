@@ -43,7 +43,9 @@ RUN rm /etc/apt/sources.list && \
                                                                                  java-16-amazon-corretto-jdk \
                                                                                  java-17-amazon-corretto-jdk \
                                                                                  java-18-amazon-corretto-jdk && \
-    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999 && \
+    mkdir -p /home/jenkins/jdk/bin && \
+    ln -s /usr/lib/jvm/java-17-amazon-corretto/bin/java /home/jenkins/jdk/bin/java
 
 # Create User
 RUN groupadd -g ${gid} ${group} && \
