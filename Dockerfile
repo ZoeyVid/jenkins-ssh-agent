@@ -22,7 +22,7 @@ RUN rm /etc/apt/sources.list && \
     apt -t bullseye-backports autoremove --purge -y && \
     apt autoclean -t bullseye-backports -y && \
     apt clean -t bullseye-backports -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install curl gnupg ca-certificates apt-utils && \
+    apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y curl gnupg ca-certificates apt-utils && \
     curl https://apt.corretto.aws/corretto.key | apt-key add - && \
     echo "deb https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
     apt update -t bullseye-backports -y && \
@@ -31,18 +31,18 @@ RUN rm /etc/apt/sources.list && \
     apt -t bullseye-backports autoremove --purge -y && \
     apt autoclean -t bullseye-backports -y && \
     apt clean -t bullseye-backports -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -y maven \
-                                                           git \
-                                                           git-lfs \
-                                                           openssh-server \
-                                                           ca-certificates \
-                                                           netcat-traditional \
-                                                           java-1.8.0-amazon-corretto-jdk \
-                                                           java-11-amazon-corretto-jdk \
-                                                           java-15-amazon-corretto-jdk \
-                                                           java-16-amazon-corretto-jdk \
-                                                           java-17-amazon-corretto-jdk \
-                                                           java-18-amazon-corretto-jdk && \
+    apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y maven \
+                                                                                 git \
+                                                                                 git-lfs \
+                                                                                 openssh-server \
+                                                                                 ca-certificates \
+                                                                                 netcat-traditional \
+                                                                                 java-1.8.0-amazon-corretto-jdk \
+                                                                                 java-11-amazon-corretto-jdk \
+                                                                                 java-15-amazon-corretto-jdk \
+                                                                                 java-16-amazon-corretto-jdk \
+                                                                                 java-17-amazon-corretto-jdk \
+                                                                                 java-18-amazon-corretto-jdk && \
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999
 
 # Create User
