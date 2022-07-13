@@ -16,12 +16,12 @@ RUN rm /etc/apt/sources.list && \
     echo "deb http://deb.debian.org/debian bullseye-backports main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://deb.debian.org/debian bullseye-backports-sloppy main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list && \
-    apt update -t bullseye-backports -y && \ 
-    apt upgrade -t bullseye-backports -y --allow-downgrades && \ 
-    apt dist-upgrade -t bullseye-backports -y --allow-downgrades && \ 
-    apt -t bullseye-backports autoremove --purge -y && \ 
-    apt autoclean -t bullseye-backports -y && \ 
-    apt clean -t bullseye-backports -y && \ 
+    apt update -t bullseye-backports -y && \
+    apt upgrade -t bullseye-backports -y --allow-downgrades && \
+    apt dist-upgrade -t bullseye-backports -y --allow-downgrades && \
+    apt -t bullseye-backports autoremove --purge -y && \
+    apt autoclean -t bullseye-backports -y && \
+    apt clean -t bullseye-backports -y && \
     apt -o DPkg::Options::="--force-confnew" -y install curl gnupg ca-certificates apt-utils && \
     curl https://apt.corretto.aws/corretto.key | apt-key add - && \
     echo "deb https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
