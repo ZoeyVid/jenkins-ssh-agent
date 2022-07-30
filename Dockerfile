@@ -64,6 +64,7 @@ RUN groupadd -g ${gid} ${group} && \
     curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
     chmod +x /usr/local/bin/setup-sshd && \
     chown -R jenkins:jenkins /home/jenkins && \
+    touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys
 
 WORKDIR "${JENKINS_AGENT_HOME}"
