@@ -66,7 +66,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: show version
-        if: ${{ github.ref == 'refs/heads/develop' }}
+        if: ${{ github.event_name != 'pull_request' }}
         run: | 
          docker run --rm --entrypoint java ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }} --version
          docker run --rm --entrypoint java ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }} --version
