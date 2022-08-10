@@ -68,4 +68,5 @@ RUN groupadd -g ${gid} ${group} && \
     chmod go-w /home/jenkins/.ssh/authorized_keys
 
 WORKDIR "${JENKINS_AGENT_HOME}"
+LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/jenkins-ssh-agent"
 ENTRYPOINT ["setup-sshd"]
