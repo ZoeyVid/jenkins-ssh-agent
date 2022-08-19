@@ -31,9 +31,10 @@ RUN rm /etc/apt/sources.list && \
     apt autoremove -t bullseye-backports --purge -y && \
     apt autoclean -t bullseye-backports -y && \
     apt clean -t bullseye-backports -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y maven \
-                                                                                 git \
+    apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y git \
                                                                                  git-lfs \
+                                                                                 maven \
+                                                                                 netcat \
                                                                                  openssh-server \
                                                                                  ca-certificates \
                                                                                  netcat-traditional \
@@ -70,3 +71,5 @@ RUN groupadd -g ${gid} ${group} && \
 WORKDIR "${JENKINS_AGENT_HOME}"
 LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/jenkins-ssh-agent"
 ENTRYPOINT ["setup-sshd"]
+
+HEALTHCHECK CMD nc -z localhost 22 || exit 1
