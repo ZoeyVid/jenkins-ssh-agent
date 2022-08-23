@@ -1,4 +1,4 @@
-FROM debian:bullseye-20220801-slim
+FROM debian:bullseye-20220822-slim
 
 ARG user=jenkins \
     group=jenkins \
@@ -34,10 +34,9 @@ RUN rm /etc/apt/sources.list && \
     apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y git \
                                                                                  git-lfs \
                                                                                  maven \
-                                                                                 netcat \
+                                                                                 netcat-openbsd \
                                                                                  openssh-server \
                                                                                  ca-certificates \
-                                                                                 netcat-traditional \
                                                                                  java-1.8.0-amazon-corretto-jdk \
                                                                                  java-11-amazon-corretto-jdk \
                                                                                  java-15-amazon-corretto-jdk \
