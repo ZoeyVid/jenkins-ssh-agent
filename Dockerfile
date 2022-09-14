@@ -3,7 +3,8 @@ FROM debian:bullseye-20220912-slim
 ARG user=jenkins \
     group=jenkins \
     uid=1000 \
-    gid=1000
+    gid=1000 \
+    mv=3.8.6
 ENV JENKINS_AGENT_HOME=/home/${user} \
     LANG='C.UTF-8' LC_ALL='C.UTF-8'
 
@@ -45,7 +46,9 @@ RUN rm /etc/apt/sources.list && \
                                                                                  java-18-amazon-corretto-jdk && \
     mkdir -p /home/jenkins/jdk/bin && \
     ln -s /usr/lib/jvm/java-17-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
-    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999 && \
+    curl -L https://dlcdn.apache.org/maven/maven-3/"${mv}"/binaries/apache-maven-"${mv}"-bin.tar.gz | tar xz -C /home/jenkins && \
+    mv /home/jenkins/apache-maven-"${mv}" /home/jenkins/mvn  
 
 # Create User
 RUN groupadd -g ${gid} ${group} && \
