@@ -45,8 +45,8 @@ RUN rm /etc/apt/sources.list && \
                                                                                  java-17-amazon-corretto-jdk \
                                                                                  java-18-amazon-corretto-jdk && \
     mkdir -p /home/jenkins/jdk/bin && \
-    ln -s /usr/lib/jvm/java-17-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
-    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-17-amazon-corretto/bin/java 99999999 && \
+    ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-11-amazon-corretto/bin/java 99999999 && \
     curl -L https://dlcdn.apache.org/maven/maven-3/"${mv}"/binaries/apache-maven-"${mv}"-bin.tar.gz | tar xz -C /home/jenkins && \
     mv /home/jenkins/apache-maven-"${mv}" /home/jenkins/mvn  
 
