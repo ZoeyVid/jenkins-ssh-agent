@@ -10,7 +10,13 @@ ENV JENKINS_AGENT_HOME=/home/${user} \
 
 # Requirements
 ENV DEBIAN_FRONTEND=noninteractive
-RUN rm /etc/apt/sources.list && \
+RUN apt update -y && \
+    apt upgrade -y --allow-downgrades && \
+    apt dist-upgrade -y --allow-downgrades && \
+    apt autoremove --purge -y && \
+    apt autoclean -y && \
+    apt clean -y && \
+    rm /etc/apt/sources.list && \
     echo "deb https://debian.inf.tu-dresden.de/debian bullseye main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb https://debian.inf.tu-dresden.de/debian bullseye-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb https://debian.inf.tu-dresden.de/debian bullseye-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
