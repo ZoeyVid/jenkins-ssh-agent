@@ -50,7 +50,8 @@ RUN apt update -y && \
                                                                                  java-15-amazon-corretto-jdk \
                                                                                  java-16-amazon-corretto-jdk \
                                                                                  java-17-amazon-corretto-jdk \
-                                                                                 java-18-amazon-corretto-jdk && \
+                                                                                 java-18-amazon-corretto-jdk \
+                                                                                 java-19-amazon-corretto-jdk && \
     mkdir -p /home/jenkins/jdk/bin && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-11-amazon-corretto/bin/java 99999999 && \
