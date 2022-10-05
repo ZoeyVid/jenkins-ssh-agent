@@ -10,6 +10,7 @@
 - /usr/lib/jvm/java-16-amazon-corretto
 - /usr/lib/jvm/java-17-amazon-corretto
 - /usr/lib/jvm/java-18-amazon-corretto
+- /usr/lib/jvm/java-19-amazon-corretto
 
 ## compose.yaml:
 ```yml
