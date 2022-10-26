@@ -1,10 +1,12 @@
 FROM debian:bullseye-20221024-slim
 
-ARG MAVEN_VERSION=3.8.6 \
-    user=jenkins \
+ARG MAVEN_VERSION=3.8.6
+
+ARG user=jenkins \
     group=jenkins \
     uid=1000 \
     gid=1000
+
 ENV JENKINS_AGENT_HOME=/home/${user} \
     LANG='C.UTF-8' LC_ALL='C.UTF-8'
 
