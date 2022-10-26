@@ -1,7 +1,7 @@
 FROM debian:bullseye-20221024-slim
 
 ARG MAVEN_VERSION=0
-ARG MAVEN4_VERSION=0
+ARG MAVEN4_VERSION=
 
 ARG user=jenkins \
     group=jenkins \
