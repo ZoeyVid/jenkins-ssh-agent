@@ -23,7 +23,7 @@ jobs:
               | sed -E "s/\^\{\}//" \
               | sed -E "s/maven-//"
           )"
-          sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION_VERSION|" ./Dockerfile
+          sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION|" ./Dockerfile
           echo "version=$MAVEN_VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
@@ -54,7 +54,7 @@ jobs:
               | sed -E "s/\^\{\}//" \
               | sed -E "s/maven-//"
           )"
-          sed -i "s|ARG MAVEN4_VERSION=.*|ARG MAVEN4_VERSION=$MAVEN4_VERSION_VERSION|" ./Dockerfile
+          sed -i "s|ARG MAVEN4_VERSION=.*|ARG MAVEN4_VERSION=$MAVEN4_VERSION|" ./Dockerfile
           echo "version=$MAVEN4_VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
