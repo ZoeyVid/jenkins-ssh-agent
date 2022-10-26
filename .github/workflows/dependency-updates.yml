@@ -1,0 +1,68 @@
+name: dependency-updates
+
+on:
+  schedule:
+    - cron:  "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  maven-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: update maven version
+        id: update
+        run: |
+          MAVEN_VERSION="$(
+          git ls-remote --tags https://github.com/apache/maven "maven-3.*.*" \
+              | cut -d/ -f3 \
+              | sort -V \
+              | tail -1 \
+              | sed -E "s/\^\{\}//" \
+              | sed -E "s/maven-//"
+          )"
+          sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION_VERSION|" ./Dockerfile
+          echo "version=$MAVEN_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          signoff: true
+          delete-branch: true
+          commit-message: update maven version to ${{ steps.update.outputs.version }}
+          branch: update-maven-version
+          title: update maven version to ${{ steps.update.outputs.version }}
+          body: update maven version to ${{ steps.update.outputs.version }}
+
+
+  maven4-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: update maven4 version
+        id: update
+        run: |
+          MAVEN4_VERSION="$(
+          git ls-remote --tags https://github.com/apache/maven "maven-4.*.*" \
+              | cut -d/ -f3 \
+              | sort -V \
+              | tail -1 \
+              | sed -E "s/\^\{\}//" \
+              | sed -E "s/maven-//"
+          )"
+          sed -i "s|ARG MAVEN4_VERSION=.*|ARG MAVEN4_VERSION=$MAVEN4_VERSION_VERSION|" ./Dockerfile
+          echo "version=$MAVEN4_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          signoff: true
+          delete-branch: true
+          commit-message: update maven4 version to ${{ steps.update.outputs.version }}
+          branch: update-maven4-version
+          title: update maven4 version to ${{ steps.update.outputs.version }}
+          body: update maven4 version to ${{ steps.update.outputs.version }}
