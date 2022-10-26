@@ -1,6 +1,7 @@
 FROM debian:bullseye-20221024-slim
 
-ARG MAVEN_VERSION=3.8.6
+ARG MAVEN_VERSION=0
+ARG MAVEN4_VERSION=0
 
 ARG user=jenkins \
     group=jenkins \
@@ -58,7 +59,9 @@ RUN apt update -y && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-11-amazon-corretto/bin/java 99999999 && \
     curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
-    mv /home/jenkins/apache-maven-"${MAVEN_VERSION}" /home/jenkins/mvn  
+    mv /home/jenkins/apache-maven-"${MAVEN_VERSION}" /home/jenkins/mvn && \
+    curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
+    mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4
 
 # Create User
 RUN groupadd -g ${gid} ${group} && \
