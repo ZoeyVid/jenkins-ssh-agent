@@ -4,6 +4,7 @@
 - /usr/bin/git
 - /usr/bin/git-lfs
 - /home/jenkins/mvn
+- /home/jenkins/mvn4
 - /usr/lib/jvm/java-1.8.0-amazon-corretto
 - /usr/lib/jvm/java-11-amazon-corretto
 - /usr/lib/jvm/java-15-amazon-corretto
