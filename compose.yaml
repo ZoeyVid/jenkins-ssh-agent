@@ -4,7 +4,6 @@ services:
         container_name: jenkins
         image: jenkins/jenkins:alpine
         restart: always
-        user: root
         environment:
         - "TZ=Europe/Berlin"
         - "JAVA_OPTS=-Xmx512M -Xms256M"
