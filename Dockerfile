@@ -21,40 +21,36 @@ RUN apt update -y && \
     apt clean -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y curl gnupg ca-certificates apt-utils && \
     rm /etc/apt/sources.list && \
-    echo "deb https://debian.inf.tu-dresden.de/debian bullseye main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb https://debian.inf.tu-dresden.de/debian bullseye-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb https://debian.inf.tu-dresden.de/debian bullseye-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb https://debian.inf.tu-dresden.de/debian bullseye-backports main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb https://debian.inf.tu-dresden.de/debian bullseye-backports-sloppy main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb https://security.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list && \
-    apt update -t bullseye-backports -y && \
-    apt upgrade -t bullseye-backports -y --allow-downgrades && \
-    apt dist-upgrade -t bullseye-backports -y --allow-downgrades && \
-    apt autoremove -t bullseye-backports --purge -y && \
-    apt autoclean -t bullseye-backports -y && \
-    apt clean -t bullseye-backports -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y curl gnupg ca-certificates apt-utils && \
+    rm /etc/apt/sources.list.d/* && \
+    echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" >> /etc/apt/sources.list && \
+    apt update -y && \
+    apt upgrade -y --allow-downgrades && \
+    apt dist-upgrade -y --allow-downgrades && \
+    apt autoremove --purge -y && \
+    apt autoclean -y && \
+    apt clean -y && \
+    apt -o DPkg::Options::="--force-confnew" -y install -y curl gnupg ca-certificates apt-utils && \
     curl https://apt.corretto.aws/corretto.key | apt-key add - && \
     echo "deb https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
-    apt update -t bullseye-backports -y && \
-    apt upgrade -t bullseye-backports -y --allow-downgrades && \
-    apt dist-upgrade -t bullseye-backports -y --allow-downgrades && \
-    apt autoremove -t bullseye-backports --purge -y && \
-    apt autoclean -t bullseye-backports -y && \
-    apt clean -t bullseye-backports -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -t bullseye-backports -y git \
-                                                                                 git-lfs \
-                                                                                 maven \
-                                                                                 netcat-openbsd \
-                                                                                 openssh-server \
-                                                                                 ca-certificates \
-                                                                                 java-1.8.0-amazon-corretto-jdk \
-                                                                                 java-11-amazon-corretto-jdk \
-                                                                                 java-15-amazon-corretto-jdk \
-                                                                                 java-16-amazon-corretto-jdk \
-                                                                                 java-17-amazon-corretto-jdk \
-                                                                                 java-18-amazon-corretto-jdk \
-                                                                                 java-19-amazon-corretto-jdk && \
+    apt update -y && \
+    apt upgrade -y --allow-downgrades && \
+    apt dist-upgrade -y --allow-downgrades && \
+    apt autoremove --purge -y && \
+    apt autoclean -y && \
+    apt clean -y && \
+    apt -o DPkg::Options::="--force-confnew" -y install -y git \
+                                                           git-lfs \
+                                                           maven \
+                                                           netcat-openbsd \
+                                                           openssh-server \
+                                                           ca-certificates \
+                                                           java-1.8.0-amazon-corretto-jdk \
+                                                           java-11-amazon-corretto-jdk \
+                                                           java-15-amazon-corretto-jdk \
+                                                           java-16-amazon-corretto-jdk \
+                                                           java-17-amazon-corretto-jdk \
+                                                           java-18-amazon-corretto-jdk \
+                                                           java-19-amazon-corretto-jdk && \
     mkdir -p /home/jenkins/jdk/bin && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
     update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-11-amazon-corretto/bin/java 99999999 && \
