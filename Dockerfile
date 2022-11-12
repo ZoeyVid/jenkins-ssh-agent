@@ -45,10 +45,8 @@ RUN apt update -y && \
     apt clean -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y git \
                                                            git-lfs \
-                                                           maven \
                                                            netcat-openbsd \
                                                            openssh-server \
-                                                           ca-certificates \
                                                            java-1.8.0-amazon-corretto-jdk \
                                                            java-11-amazon-corretto-jdk \
                                                            java-15-amazon-corretto-jdk \
