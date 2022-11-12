@@ -13,14 +13,7 @@ ENV JENKINS_AGENT_HOME=/home/${user} \
 
 # Requirements
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update -y && \
-    apt upgrade -y --allow-downgrades && \
-    apt dist-upgrade -y --allow-downgrades && \
-    apt autoremove --purge -y && \
-    apt autoclean -y && \
-    apt clean -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -y curl gnupg ca-certificates apt-utils && \
-    rm -rf /etc/apt/sources.list && \
+RUN rm -rf /etc/apt/sources.list && \
     rm -rf /etc/apt/sources.list.d/* && \
     echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" >> /etc/apt/sources.list && \
     apt update -y && \
@@ -30,8 +23,13 @@ RUN apt update -y && \
     apt autoclean -y && \
     apt clean -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y curl gnupg ca-certificates apt-utils && \
-    curl https://apt.corretto.aws/corretto.key | apt-key add - && \
-    echo "deb https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -L https://apt.corretto.aws/corretto.key -o /etc/apt/keyrings/corretto.key && \
+    gpg --no-default-keyring --keyring /etc/apt/keyrings/temp-keyring.gpg --import /etc/apt/keyrings/corretto.key && \
+    gpg --no-default-keyring --keyring /etc/apt/keyrings/temp-keyring.gpg --export --output /etc/apt/keyrings/corretto.gpg && \
+    rm -rf /etc/apt/keyrings/corretto.key && \
+    rm -rf /etc/apt/keyrings/temp-keyring.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/corretto.gpg] https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
