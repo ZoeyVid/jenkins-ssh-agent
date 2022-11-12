@@ -20,8 +20,8 @@ RUN apt update -y && \
     apt autoclean -y && \
     apt clean -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y curl gnupg ca-certificates apt-utils && \
-    rm /etc/apt/sources.list && \
-    rm /etc/apt/sources.list.d/* && \
+    rm -rf /etc/apt/sources.list && \
+    rm -rf /etc/apt/sources.list.d/* && \
     echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" >> /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
