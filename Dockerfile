@@ -61,10 +61,10 @@ RUN apt update -y && \
     curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
     mv /home/jenkins/apache-maven-"${MAVEN_VERSION}" /home/jenkins/mvn && \
     curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
-    mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4
+    mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4 && \
 
 # Create User
-RUN groupadd -g ${gid} ${group} && \
+    groupadd -g ${gid} ${group} && \
     useradd -d "${JENKINS_AGENT_HOME}" -u "${uid}" -g "${gid}" -m -s /bin/bash "${user}" && \
 
 # setup SSH server
@@ -81,7 +81,21 @@ RUN groupadd -g ${gid} ${group} && \
     chmod +x /usr/local/bin/setup-sshd && \
     chown -R jenkins:jenkins /home/jenkins && \
     touch /home/jenkins/.ssh/authorized_keys && \
-    chmod go-w /home/jenkins/.ssh/authorized_keys
+    chmod go-w /home/jenkins/.ssh/authorized_keys && \
+
+    apt update -y && \
+    apt upgrade -y --allow-downgrades && \
+    apt dist-upgrade -y --allow-downgrades && \
+    apt autoremove --purge -y && \
+    apt autoclean -y && \
+    apt clean -y && \
+    apt purge curl gnupg -y
+    apt update -y && \
+    apt upgrade -y --allow-downgrades && \
+    apt dist-upgrade -y --allow-downgrades && \
+    apt autoremove --purge -y && \
+    apt autoclean -y && \
+    apt clean -y && \
 
 WORKDIR "${JENKINS_AGENT_HOME}"
 LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/jenkins-ssh-agent"
