@@ -89,13 +89,13 @@ RUN apt update -y && \
     apt autoremove --purge -y && \
     apt autoclean -y && \
     apt clean -y && \
-    apt purge curl gnupg -y
+    apt purge curl gnupg -y && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
     apt autoremove --purge -y && \
     apt autoclean -y && \
-    apt clean -y && \
+    apt clean -y
 
 WORKDIR "${JENKINS_AGENT_HOME}"
 LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/jenkins-ssh-agent"
