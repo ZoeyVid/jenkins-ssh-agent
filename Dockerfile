@@ -3,14 +3,6 @@ FROM debian:unstable-20221114-slim
 ARG MAVEN_VERSION=3.8.6
 ARG MAVEN4_VERSION=4.0.0-alpha-2
 
-ARG user=jenkins \
-    group=jenkins \
-    uid=1000 \
-    gid=1000
-
-ENV JENKINS_AGENT_HOME=/home/${user} \
-    LANG='C.UTF-8' LC_ALL='C.UTF-8'
-
 # Requirements
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update -y && \
@@ -67,8 +59,7 @@ RUN apt update -y && \
     mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4 && \
 
 # Create User
-    groupadd -g ${gid} ${group} && \
-    useradd -d "${JENKINS_AGENT_HOME}" -u "${uid}" -g "${gid}" -m -s /bin/bash "${user}" && \
+    useradd -d /home/jenkins jenkins && \
 
 # setup SSH server
     sed -i /etc/ssh/sshd_config \
@@ -78,13 +69,13 @@ RUN apt update -y && \
         -e 's/#SyslogFacility.*/SyslogFacility AUTH/' \
         -e 's/#LogLevel.*/LogLevel INFO/' && \
     mkdir /var/run/sshd && \
-    mkdir ${JENKINS_AGENT_HOME}/.ssh && \
-    echo "PATH=${PATH}" >> ${JENKINS_AGENT_HOME}/.ssh/environment && \
+    mkdir /home/jenkins/.ssh && \
+    echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
     curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
     chmod +x /usr/local/bin/setup-sshd && \
-    chown -R jenkins:jenkins /home/jenkins && \
     touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys && \
+    chown -R jenkins:jenkins /home/jenkins && \
 
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
@@ -100,8 +91,7 @@ RUN apt update -y && \
     apt autoclean -y && \
     apt clean -y
 
-WORKDIR "${JENKINS_AGENT_HOME}"
-LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/jenkins-ssh-agent"
-ENTRYPOINT ["setup-sshd"]
+WORKDIR /home/jenkins
+ENTRYPOINT setup-sshd
 
 HEALTHCHECK CMD nc -z localhost 22 || exit 1
