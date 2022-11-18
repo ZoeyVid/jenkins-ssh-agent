@@ -19,7 +19,7 @@ RUN apt update -y && \
     apt autoremove --purge -y && \
     apt autoclean -y && \
     apt clean -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -y ca-certificates apt-utils && \
+    apt -o DPkg::Options::="--force-confnew" -y install -y ca-certificates tzdata apt-utils && \
     rm -rf /etc/apt/sources.list && \
     rm -rf /etc/apt/sources.list.d/* && \
     echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" >> /etc/apt/sources.list && \
