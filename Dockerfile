@@ -92,6 +92,5 @@ RUN apt update -y && \
     apt clean -y
 
 WORKDIR /home/jenkins
-ENTRYPOINT setup-sshd
-
+ENTRYPOINT ["setup-sshd"]
 HEALTHCHECK CMD nc -z localhost 22 || exit 1
