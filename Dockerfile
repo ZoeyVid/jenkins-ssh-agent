@@ -29,7 +29,7 @@ RUN apt update -y && \
     apt autoremove --purge -y && \
     apt autoclean -y && \
     apt clean -y && \
-    apt -o DPkg::Options::="--force-confnew" -y install -y curl gnupg && \
+    apt -o DPkg::Options::="--force-confnew" -y install -y ca-certificates tzdata apt-utils curl gnupg && \
     mkdir -p /etc/apt/keyrings && \
     curl -L https://apt.corretto.aws/corretto.key -o /etc/apt/keyrings/corretto.key && \
     gpg --no-default-keyring --keyring /etc/apt/keyrings/temp-keyring.gpg --import /etc/apt/keyrings/corretto.key && \
@@ -45,8 +45,11 @@ RUN apt update -y && \
     apt clean -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y git \
                                                            git-lfs \
+                                                           tzdata \
+                                                           apt-utils \
                                                            netcat-openbsd \
                                                            openssh-server \
+                                                           ca-certificates \
                                                            java-1.8.0-amazon-corretto-jdk \
                                                            java-11-amazon-corretto-jdk \
                                                            java-15-amazon-corretto-jdk \
