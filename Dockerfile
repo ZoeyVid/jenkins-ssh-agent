@@ -72,6 +72,7 @@ RUN apt update -y && \
     mkdir /home/jenkins/.ssh && \
     echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
     curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
+    sed -i "s|\${JENKINS_AGENT_HOME}|/home/jenkins|g" /usr/local/bin/setup-sshd && \
     chmod +x /usr/local/bin/setup-sshd && \
     touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys && \
