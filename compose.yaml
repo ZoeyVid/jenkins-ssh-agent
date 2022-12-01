@@ -16,7 +16,7 @@ services:
 
     jenkins-agent:
         container_name: jenkins-agent
-        image: sancraftdev/jenkins-ssh-agent
+        image: zoeyvid/jenkins-ssh-agent
         restart: always
         environment:
         - "TZ=Europe/Berlin"
