@@ -17,7 +17,7 @@ jobs:
         id: update
         run: |
           DEBIAN_VERSION="$(curl https://hub.docker.com/v2/namespaces/library/repositories/debian/tags?page_size=100 | jq -r ."results"[].name | grep unstable | grep slim | grep -Pv "unstable-slim" | head -n 1)"
-          sed -i "s|FROM debian:.*|ARG FROM debian:$DEBIAN_VERSION|" ./Dockerfile
+          sed -i "s|FROM debian:.*|FROM debian:$DEBIAN_VERSION|" ./Dockerfile
           echo "version=$DEBIAN_VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
