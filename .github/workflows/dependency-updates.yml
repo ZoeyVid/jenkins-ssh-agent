@@ -7,6 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
+  debian-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: update debian version
+        id: update
+        run: |
+          DEBIAN_VERSION="$(curl https://hub.docker.com/v2/namespaces/library/repositories/debian/tags?page_size=100 | jq -r ."results"[].name | grep unstable | grep slim | grep -Pv "unstable-slim" | head -n 1)"
+          sed -i "s|FROM debian:.*|ARG FROM debian:$DEBIAN_VERSION|" ./Dockerfile
+          echo "version=$DEBIAN_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          signoff: true
+          delete-branch: true
+          commit-message: update debian version to ${{ steps.update.outputs.version }}
+          branch: update-debian-version
+          title: update debian version to ${{ steps.update.outputs.version }}
+          body: update debian version to ${{ steps.update.outputs.version }}
+          
+          
   maven-update:
     runs-on: ubuntu-latest
     steps:
