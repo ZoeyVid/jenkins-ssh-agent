@@ -1,7 +1,7 @@
 FROM debian:unstable-20221205-slim
 
 ARG MAVEN_VERSION=3.8.6
-ARG MAVEN4_VERSION=4.0.0-alpha-3
+ARG MAVEN4_VERSION=4.0.0-alpha-2
 
 # Requirements
 ENV DEBIAN_FRONTEND=noninteractive
