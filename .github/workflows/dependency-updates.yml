@@ -48,6 +48,7 @@ jobs:
               | sed -E "s/\^\{\}//" \
               | sed -E "s/maven-//"
           )"
+          curl -sL https://dlcdn.apache.org/maven/maven-4/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz || exit 1
           sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION|" ./Dockerfile
           echo "version=$MAVEN_VERSION" >> $GITHUB_OUTPUT
 
