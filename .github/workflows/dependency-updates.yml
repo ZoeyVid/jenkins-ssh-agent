@@ -16,7 +16,7 @@ jobs:
       - name: update debian version
         id: update
         run: |
-          DEBIAN_VERSION="$(curl -sL https://hub.docker.com/v2/namespaces/library/repositories/debian/tags?page_size=100 | jq -r .results[].name | grep -E "unstable-.*-slim" | sort -r | head -n 1)"
+          DEBIAN_VERSION="$(curl -sL https://hub.docker.com/v2/repositories/library//debian/tags?page_size=1024 | jq -r .results[].name | grep -E "unstable-.*-slim" | sort -r | head -n 1)"
           sed -i "s|FROM debian:.*|FROM debian:$DEBIAN_VERSION|" ./Dockerfile
           echo "version=$DEBIAN_VERSION" >> $GITHUB_OUTPUT
 
