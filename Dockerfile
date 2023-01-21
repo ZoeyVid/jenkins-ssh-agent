@@ -3,6 +3,8 @@ FROM debian:unstable-20230109-slim
 ARG MAVEN_VERSION=3.8.7
 ARG MAVEN4_VERSION=4.0.0-alpha-3
 
+COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
+
 # Requirements
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update -y && \
@@ -69,7 +71,6 @@ RUN apt update -y && \
     mkdir /var/run/sshd && \
     mkdir /home/jenkins/.ssh && \
     echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
-    curl -o /usr/local/bin/setup-sshd -L https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd && \
     sed -i "s|\${JENKINS_AGENT_HOME}|/home/jenkins|g" /usr/local/bin/setup-sshd && \
     chmod +x /usr/local/bin/setup-sshd && \
     touch /home/jenkins/.ssh/authorized_keys && \
@@ -91,5 +92,5 @@ RUN apt update -y && \
     apt clean -y
 
 WORKDIR /home/jenkins
-ENTRYPOINT ["setup-sshd"]
+ENTRYPOINT ["setup-sshd.sh"]
 HEALTHCHECK CMD nc -z localhost 22 || exit 1
