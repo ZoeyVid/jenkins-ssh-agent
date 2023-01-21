@@ -57,10 +57,8 @@ RUN apt update -y && \
     mv /home/jenkins/apache-maven-"${MAVEN_VERSION}" /home/jenkins/mvn && \
     curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
     mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4 && \
-
 # Create User
     useradd -d /home/jenkins jenkins && \
-
 # setup SSH server
     sed -i /etc/ssh/sshd_config \
         -e 's/#PermitRootLogin.*/PermitRootLogin no/' \
@@ -77,7 +75,7 @@ RUN apt update -y && \
     touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys && \
     chown -R jenkins:jenkins /home/jenkins && \
-
+# Clean Image
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
