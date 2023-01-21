@@ -6,6 +6,7 @@ on:
       - develop
     paths:
       - Dockerfile
+      - setup-sshd.sh
       - .github/workflows/docker.yml
   pull_request:
     paths:
