@@ -10,6 +10,7 @@ on:
   pull_request:
     paths:
       - Dockerfile
+      - setup-sshd.sh
       - .github/workflows/docker.yml
   workflow_dispatch:
 
