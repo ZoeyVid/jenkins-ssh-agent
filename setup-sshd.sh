@@ -54,13 +54,13 @@ fi
 env | grep _ >> /etc/environment
 
 if [[ $# -gt 0 ]]; then
-  echo "${0##*/} params: $@"
+  echo "${0##*/} params: $*"
 
   if [[ $1 == ssh-* ]]; then
     echo "Authorizing ssh pubkey found in params."
     write_key "$1"
     shift 1
-  elif [[ "$@" == "/usr/sbin/sshd -D -p 22" ]]; then
+  elif [[ "$*" == "/usr/sbin/sshd -D -p 22" ]]; then
     # neutralize default jenkins docker-plugin command
     # we will run sshd at the end anyway
     echo "Ignoring provided sshd command."
@@ -70,7 +70,7 @@ if [[ $# -gt 0 ]]; then
 
     shift 1
   else
-    echo "Executing params: '$@'"
+    echo "Executing params: '$*'"
     exec "$@"
   fi
 fi
