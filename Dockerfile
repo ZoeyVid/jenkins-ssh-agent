@@ -71,7 +71,6 @@ RUN apt update -y && \
     mkdir /var/run/sshd && \
     mkdir /home/jenkins/.ssh && \
     echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
-    sed -i "s|\${JENKINS_AGENT_HOME}|/home/jenkins|g" /usr/local/bin/setup-sshd && \
     chmod +x /usr/local/bin/setup-sshd && \
     touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys && \
