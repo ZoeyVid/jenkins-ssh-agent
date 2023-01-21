@@ -71,7 +71,7 @@ RUN apt update -y && \
     mkdir /var/run/sshd && \
     mkdir /home/jenkins/.ssh && \
     echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
-    chmod +x /usr/local/bin/setup-sshd && \
+    chmod +x /usr/local/bin/setup-sshd.sh && \
     touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys && \
     chown -R jenkins:jenkins /home/jenkins && \
