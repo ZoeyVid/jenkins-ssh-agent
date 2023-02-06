@@ -1,6 +1,6 @@
 FROM debian:unstable-20230202-slim
 
-ARG MAVEN_VERSION=3.8.7
+ARG MAVEN_VERSION=3.9.0
 ARG MAVEN4_VERSION=4.0.0-alpha-4
 
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
