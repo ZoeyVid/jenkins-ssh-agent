@@ -52,30 +52,22 @@ RUN apt update -y && \
                                                            java-17-amazon-corretto-jdk \
                                                            java-18-amazon-corretto-jdk \
                                                            java-19-amazon-corretto-jdk && \
-    mkdir -p /home/jenkins/jdk/bin && \
-    ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /home/jenkins/jdk/bin/java && \
-    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-11-amazon-corretto/bin/java 99999999 && \
-    update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-11-amazon-corretto/bin/javac 99999999 && \
+    chmod +x /usr/local/bin/setup-sshd.sh /usr/local/bin/docker && \
+    mkdir -p /root/jdk/bin /root/.ssh && \
+    ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
+    ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /root/jdk/bin/java && \
     curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
     mv /home/jenkins/apache-maven-"${MAVEN_VERSION}" /home/jenkins/mvn && \
     curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
     mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4 && \
-# Create User
-    useradd -d /home/jenkins jenkins && \
 # setup SSH server
-    sed -i /etc/ssh/sshd_config \
-        -e 's/#PermitRootLogin.*/PermitRootLogin no/' \
+    sed -e 's/#LogLevel.*/LogLevel INFO/' \
+        -e 's/#PermitRootLogin.*/PermitRootLogin yes/' \
         -e 's/#RSAAuthentication.*/RSAAuthentication yes/'  \
         -e 's/#PasswordAuthentication.*/PasswordAuthentication no/' \
         -e 's/#SyslogFacility.*/SyslogFacility AUTH/' \
-        -e 's/#LogLevel.*/LogLevel INFO/' && \
-    mkdir /var/run/sshd && \
-    mkdir /home/jenkins/.ssh && \
-    echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
-    chmod +x /usr/local/bin/setup-sshd.sh /usr/local/bin/docker && \
-    touch /home/jenkins/.ssh/authorized_keys && \
-    chmod go-w /home/jenkins/.ssh/authorized_keys && \
-    chown -R jenkins:jenkins /home/jenkins && \
+        -i /etc/ssh/sshd_config && \
+    touch /root/.ssh/authorized_keys && \
 # Clean Image
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
@@ -91,6 +83,6 @@ RUN apt update -y && \
     apt autoclean -y && \
     apt clean -y
 
-WORKDIR /home/jenkins
+WORKDIR /root
 ENTRYPOINT ["setup-sshd.sh"]
 HEALTHCHECK CMD nc -z localhost 22 || exit 1
