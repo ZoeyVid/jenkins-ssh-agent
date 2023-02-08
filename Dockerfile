@@ -57,10 +57,10 @@ RUN apt update -y && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /root/jdk/bin/java && \
-    curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
-    mv /home/jenkins/apache-maven-"${MAVEN_VERSION}" /home/jenkins/mvn && \
-    curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
-    mv /home/jenkins/apache-maven-"${MAVEN4_VERSION}" /home/jenkins/mvn4 && \
+    curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /usr/local/bin && \
+    mv /usr/local/bin/apache-maven-"${MAVEN_VERSION}" /usr/local/bin/mvn && \
+    curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /usr/local/bin && \
+    mv /usr/local/bin/apache-maven-"${MAVEN4_VERSION}" /usr/local/bin/mvn4 && \
 # setup SSH server
     sed -e 's/#LogLevel.*/LogLevel INFO/' \
         -e 's/#PermitRootLogin.*/PermitRootLogin yes/' \
