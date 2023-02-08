@@ -54,6 +54,7 @@ RUN apt update -y && \
                                                            java-19-amazon-corretto-jdk && \
     chmod +x /usr/local/bin/setup-sshd.sh /usr/local/bin/docker && \
     mkdir -p /root/jdk/bin /root/.ssh && \
+    rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /root/jdk/bin/java && \
     curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /home/jenkins && \
