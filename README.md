@@ -22,12 +22,11 @@ services:
         container_name: jenkins
         image: jenkins/jenkins:alpine
         restart: always
-        user: root
         environment:
         - "TZ=Europe/Berlin"
-        - "JAVA_OPTS=-Xmx512M -Xms256M"
+        - "JAVA_OPTS=-Xmx256M -Xms256M"
         ports:
-        - "58080:8080"
+        - "127.0.0.1:8081:8080"
         volumes:
         - "/opt/jenkins:/var/jenkins_home"
         links:
@@ -40,4 +39,6 @@ services:
         environment:
         - "TZ=Europe/Berlin"
         - "JENKINS_AGENT_SSH_PUBKEY=ssh-rsa ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#        volumes:
+#        - "/var/run/docker.sock:/var/run/docker.sock:ro"
 ```
