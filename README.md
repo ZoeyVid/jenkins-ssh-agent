@@ -3,9 +3,9 @@
 ## Paths:
 - /usr/bin/git
 - /usr/bin/git-lfs
-- /usr/local/bin/mvn
-- /usr/local/bin/mvn4
 - /usr/local/bin/docker
+- /usr/local/bin/mvn/bin/mvn
+- /usr/local/bin/mvn4/bin/mvn
 - /usr/lib/jvm/java-1.8.0-amazon-corretto
 - /usr/lib/jvm/java-11-amazon-corretto
 - /usr/lib/jvm/java-15-amazon-corretto
