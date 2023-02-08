@@ -53,7 +53,6 @@ RUN apt update -y && \
                                                            java-18-amazon-corretto-jdk \
                                                            java-19-amazon-corretto-jdk && \
     chmod +x /usr/local/bin/setup-sshd.sh /usr/local/bin/docker && \
-    mkdir -p /root/jdk/bin /root/.ssh && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /root/jdk/bin/java && \
@@ -68,7 +67,6 @@ RUN apt update -y && \
         -e 's/#PasswordAuthentication.*/PasswordAuthentication no/' \
         -e 's/#SyslogFacility.*/SyslogFacility AUTH/' \
         -i /etc/ssh/sshd_config && \
-    touch /root/.ssh/authorized_keys && \
 # Clean Image
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
