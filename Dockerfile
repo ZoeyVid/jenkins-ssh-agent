@@ -3,6 +3,7 @@ FROM debian:unstable-20230202-slim
 ARG MAVEN_VERSION=3.9.0
 ARG MAVEN4_VERSION=4.0.0-alpha-4
 
+COPY --from=docker:cli /usr/local/bin/docker /usr/local/bin/docker
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
 
 # Requirements
@@ -71,7 +72,7 @@ RUN apt update -y && \
     mkdir /var/run/sshd && \
     mkdir /home/jenkins/.ssh && \
     echo "PATH=${PATH}" >> /home/jenkins/.ssh/environment && \
-    chmod +x /usr/local/bin/setup-sshd.sh && \
+    chmod +x /usr/local/bin/setup-sshd.sh /usr/local/bin/docker && \
     touch /home/jenkins/.ssh/authorized_keys && \
     chmod go-w /home/jenkins/.ssh/authorized_keys && \
     chown -R jenkins:jenkins /home/jenkins && \
