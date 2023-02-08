@@ -37,10 +37,10 @@ write_key() {
   # ID_GROUP contains the user:group of JENKINS_AGENT_HOME directory
   ID_GROUP=$(stat -c '%U:%G' "/home/jenkins")
 
-  mkdir -p "/home/jenkins/.ssh"
-  echo "$1" > "/home/jenkins/.ssh/authorized_keys"
-  chown -Rf "${ID_GROUP}" "/home/jenkins/.ssh"
-  chmod 0700 -R "/home/jenkins/.ssh"
+  mkdir -p "/root/.ssh"
+  echo "$1" > "/root/.ssh/authorized_keys"
+  chown -Rf "${ID_GROUP}" "/root/.ssh"
+  chmod 0700 -R "/root/.ssh"
 }
 
 if [[ ${JENKINS_AGENT_SSH_PUBKEY} == ssh-* ]]; then
