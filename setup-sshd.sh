@@ -35,7 +35,7 @@ write_key() {
   # As user, group, uid, gid and JENKINS_AGENT_HOME can be overridden at build,
   # we need to find the values for JENKINS_AGENT_HOME
   # ID_GROUP contains the user:group of JENKINS_AGENT_HOME directory
-  ID_GROUP=$(stat -c '%U:%G' "/home/jenkins")
+  ID_GROUP=$(stat -c '%U:%G' "/root")
 
   mkdir -p "/root/.ssh"
   echo "$1" > "/root/.ssh/authorized_keys"
