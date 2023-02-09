@@ -1,4 +1,4 @@
-FROM debian:unstable-20230202-slim
+FROM debian:unstable-20230208-slim
 
 ARG MAVEN_VERSION=3.9.0
 ARG MAVEN4_VERSION=4.0.0-alpha-4
@@ -16,7 +16,7 @@ RUN apt update -y && \
     apt clean -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y ca-certificates tzdata apt-utils && \
     rm -rf /etc/apt/sources.list && \
-    rm -rf /etc/apt/sources.list.d/* && \
+    rm -rf /etc/apt/sources.list.d && \
     echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" >> /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
@@ -52,7 +52,6 @@ RUN apt update -y && \
                                                            java-17-amazon-corretto-jdk \
                                                            java-18-amazon-corretto-jdk \
                                                            java-19-amazon-corretto-jdk && \
-    chmod +x /usr/local/bin/setup-sshd.sh /usr/local/bin/docker && \
     mkdir -p /var/run/sshd /root/jdk/bin && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
