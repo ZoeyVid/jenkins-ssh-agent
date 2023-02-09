@@ -17,7 +17,7 @@ RUN apt update -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y ca-certificates tzdata apt-utils && \
     rm -rf /etc/apt/sources.list && \
     rm -rf /etc/apt/sources.list.d && \
-    echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" | tee /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
@@ -31,7 +31,7 @@ RUN apt update -y && \
     gpg --no-default-keyring --keyring /etc/apt/keyrings/temp-keyring.gpg --export --output /etc/apt/keyrings/corretto.gpg && \
     rm -rf /etc/apt/keyrings/corretto.key && \
     rm -rf /etc/apt/keyrings/temp-keyring.gpg && \
-    echo "deb [signed-by=/etc/apt/keyrings/corretto.gpg] https://apt.corretto.aws stable main" >> /etc/apt/sources.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/corretto.gpg] https://apt.corretto.aws stable main" | tee /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
@@ -56,10 +56,10 @@ RUN apt update -y && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /root/jdk/bin/java && \
-    curl -L https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz | tar xz -C /usr/local/bin && \
-    mv /usr/local/bin/apache-maven-"${MAVEN_VERSION}" /usr/local/bin/mvn && \
-    curl -L https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz | tar xz -C /usr/local/bin && \
-    mv /usr/local/bin/apache-maven-"${MAVEN4_VERSION}" /usr/local/bin/mvn4 && \
+    curl -L https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz | tar xz -C /usr/local/bin && \
+    mv /usr/local/bin/apache-maven-"$MAVEN_VERSION" /usr/local/bin/mvn && \
+    curl -L https://dlcdn.apache.org/maven/maven-4/"$MAVEN4_VERSION"/binaries/apache-maven-"$MAVEN4_VERSION"-bin.tar.gz | tar xz -C /usr/local/bin && \
+    mv /usr/local/bin/apache-maven-"$MAVEN4_VERSION" /usr/local/bin/mvn4 && \
 # setup SSH server
     sed -e 's/#LogLevel.*/LogLevel INFO/' \
         -e 's/#PermitRootLogin.*/PermitRootLogin yes/' \
