@@ -17,7 +17,7 @@ RUN apt update -y && \
     apt -o DPkg::Options::="--force-confnew" -y install -y ca-certificates tzdata apt-utils && \
     rm -rf /etc/apt/sources.list && \
     rm -rf /etc/apt/sources.list.d && \
-    echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" | tee /etc/apt/sources.list && \
+    echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] https://debian.inf.tu-dresden.de/debian unstable main contrib non-free" | tee -a /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
@@ -31,7 +31,7 @@ RUN apt update -y && \
     gpg --no-default-keyring --keyring /etc/apt/keyrings/temp-keyring.gpg --export --output /etc/apt/keyrings/corretto.gpg && \
     rm -rf /etc/apt/keyrings/corretto.key && \
     rm -rf /etc/apt/keyrings/temp-keyring.gpg && \
-    echo "deb [signed-by=/etc/apt/keyrings/corretto.gpg] https://apt.corretto.aws stable main" | tee /etc/apt/sources.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/corretto.gpg] https://apt.corretto.aws stable main" | tee -a /etc/apt/sources.list && \
     apt update -y && \
     apt upgrade -y --allow-downgrades && \
     apt dist-upgrade -y --allow-downgrades && \
