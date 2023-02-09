@@ -1,4 +1,4 @@
-FROM debian:unstable-20230202-slim
+FROM debian:unstable-20230208-slim
 
 ARG MAVEN_VERSION=3.9.0
 ARG MAVEN4_VERSION=4.0.0-alpha-4
