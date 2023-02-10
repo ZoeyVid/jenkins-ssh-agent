@@ -3,7 +3,7 @@ FROM alpine:3.17.1
 ARG MAVEN_VERSION=3.9.0
 ARG MAVEN4_VERSION=4.0.0-alpha-4
 
-COPY --from=docker:23.0.0-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=docker:23.0.1-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
 
 RUN apk upgrade --no-cache && \
