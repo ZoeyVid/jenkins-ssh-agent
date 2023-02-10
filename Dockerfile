@@ -3,7 +3,7 @@ FROM debian:unstable-20230208-slim
 ARG MAVEN_VERSION=3.9.0
 ARG MAVEN4_VERSION=4.0.0-alpha-4
 
-COPY --chmod=775 --from=docker:23.0.0-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=docker:23.0.0-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
 
 # Requirements
