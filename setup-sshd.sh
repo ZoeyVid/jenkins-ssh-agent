@@ -35,19 +35,19 @@ write_key() {
   # As user, group, uid, gid and JENKINS_AGENT_HOME can be overridden at build,
   # we need to find the values for JENKINS_AGENT_HOME
   # ID_GROUP contains the user:group of JENKINS_AGENT_HOME directory
-  ID_GROUP=$(stat -c '%U:%G' "/root")
+  ID_GROUP=$(stat -c '%U:%G' "$JENKINS_AGENT_HOME")
 
-  mkdir -p "/root/.ssh"
-  echo "$1" > "/root/.ssh/authorized_keys"
-  chown -Rf "${ID_GROUP}" "/root/.ssh"
-  chmod 0700 -R "/root/.ssh"
+  mkdir -p ""$JENKINS_AGENT_HOME"/.ssh"
+  echo "$1" > ""$JENKINS_AGENT_HOME"/.ssh/authorized_keys"
+  chown -Rf "$ID_GROUP" ""$JENKINS_AGENT_HOME"/.ssh"
+  chmod 0700 -R ""$JENKINS_AGENT_HOME"/.ssh"
 }
 
-if [[ ${JENKINS_AGENT_SSH_PUBKEY} == ssh-* ]]; then
-  write_key "${JENKINS_AGENT_SSH_PUBKEY}"
+if [[ "$JENKINS_AGENT_SSH_PUBKEY" == ssh-* ]]; then
+  write_key "$JENKINS_AGENT_SSH_PUBKEY"
 fi
-if [[ ${JENKINS_SLAVE_SSH_PUBKEY} == ssh-* ]]; then
-  write_key "${JENKINS_SLAVE_SSH_PUBKEY}"
+if [[ "$JENKINS_SLAVE_SSH_PUBKEY" == ssh-* ]]; then
+  write_key "$JENKINS_SLAVE_SSH_PUBKEY"
 fi
 
 # ensure variables passed to docker container are also exposed to ssh sessions
