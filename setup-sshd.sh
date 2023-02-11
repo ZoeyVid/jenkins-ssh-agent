@@ -53,20 +53,20 @@ fi
 # ensure variables passed to docker container are also exposed to ssh sessions
 env | grep _ >> /etc/environment
 
-if [[ $# -gt 0 ]]; then
+if [ $# -gt 0 ]; then
   echo "${0##*/} params: $*"
 
   if [[ $1 == ssh-* ]]; then
     echo "Authorizing ssh pubkey found in params."
     write_key "$1"
     shift 1
-  elif [[ "$*" == "/usr/sbin/sshd -D -p 22" ]]; then
+  elif [ "$*" == "/usr/sbin/sshd -D -p 22" ]; then
     # neutralize default jenkins docker-plugin command
     # we will run sshd at the end anyway
     echo "Ignoring provided sshd command."
 
     # if unquoted (4 tokens) shift extra 3
-    [[ "$2" == "-D" ]] && shift 3
+    [ "$2" == "-D" ] && shift 3
 
     shift 1
   else
@@ -79,4 +79,4 @@ fi
 ssh-keygen -A
 
 # do not detach (-D), log to stderr (-e), passthrough other arguments
-exec /usr/sbin/sshd -D -e "${@}"
+exec /usr/sbin/sshd -D -e "$@"
