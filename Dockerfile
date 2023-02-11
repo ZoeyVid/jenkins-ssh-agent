@@ -7,7 +7,7 @@ COPY --from=docker:23.0.1-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/do
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
 
 RUN apk upgrade --no-cache && \
-    apk add --no-cache ca-certificates wget tzdata bash && \
+    apk add --no-cache ca-certificates tzdata bash && \
     wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
     apk add --no-cache git git-lfs netcat-openbsd openssh-server \
@@ -19,7 +19,7 @@ RUN apk upgrade --no-cache && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /root/jdk/bin/java && \
-    wget https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -O -| tar xz -C /usr/local/bin && \
+    wget https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
     mv /usr/local/bin/apache-maven-"$MAVEN_VERSION" /usr/local/bin/mvn && \
     wget https://dlcdn.apache.org/maven/maven-4/"$MAVEN4_VERSION"/binaries/apache-maven-"$MAVEN4_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
     mv /usr/local/bin/apache-maven-"$MAVEN4_VERSION" /usr/local/bin/mvn4 && \
