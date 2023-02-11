@@ -1,25 +1,21 @@
 name: dependency-updates
-
 on:
   push:
   schedule:
-    - cron:  "0 */6 * * *"
+    - cron: "0 */6 * * *"
   workflow_dispatch:
-
 jobs:
   debian-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: update debian version
         id: update
         run: |
           DEBIAN_VERSION="$(curl -sL https://hub.docker.com/v2/repositories/library//debian/tags?page_size=1024 | jq -r .results[].name | grep -E "unstable-.*-slim" | sort -r | head -n 1)"
           sed -i "s|FROM debian:.*|FROM debian:$DEBIAN_VERSION|" ./Dockerfile
           echo "version=$DEBIAN_VERSION" >> $GITHUB_OUTPUT
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
@@ -28,14 +24,12 @@ jobs:
           commit-message: update debian version to ${{ steps.update.outputs.version }}
           branch: update-debian-version
           title: update debian version to ${{ steps.update.outputs.version }}
-          body: update debian version to ${{ steps.update.outputs.version }}          
-          
+          body: update debian version to ${{ steps.update.outputs.version }}
   maven-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: update maven version
         id: update
         run: |
@@ -50,7 +44,6 @@ jobs:
           curl -sfL https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz || exit 1
           sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION|" ./Dockerfile
           echo "version=$MAVEN_VERSION" >> $GITHUB_OUTPUT
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
@@ -60,13 +53,11 @@ jobs:
           branch: update-maven-version
           title: update maven version to ${{ steps.update.outputs.version }}
           body: update maven version to ${{ steps.update.outputs.version }}
-
   maven4-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: update maven4 version
         id: update
         run: |
@@ -81,7 +72,6 @@ jobs:
           curl -sfL https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz || exit 1
           sed -i "s|ARG MAVEN4_VERSION=.*|ARG MAVEN4_VERSION=$MAVEN4_VERSION|" ./Dockerfile
           echo "version=$MAVEN4_VERSION" >> $GITHUB_OUTPUT
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
@@ -91,16 +81,13 @@ jobs:
           branch: update-maven4-version
           title: update maven4 version to ${{ steps.update.outputs.version }}
           body: update maven4 version to ${{ steps.update.outputs.version }}
-          
   setup-sshd-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: update setup-sshd
         run: curl -sL https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd -o setup-sshd
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
