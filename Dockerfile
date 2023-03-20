@@ -1,7 +1,7 @@
 FROM alpine:3.17.2
 
 ARG MAVEN_VERSION=3.9.1
-ARG MAVEN4_VERSION=4.0.0-alpha-4
+ARG MAVEN4_VERSION=4.0.0-alpha-5
 
 COPY --from=docker:23.0.1-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
