@@ -12,7 +12,8 @@ RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazon
                        amazon-corretto-8 \
                        amazon-corretto-11 \
                        amazon-corretto-17 \
-                       amazon-corretto-19 && \
+                       amazon-corretto-19 \
+                       amazon-corretto-20 && \
     mkdir -p /var/run/sshd /root/jdk/bin && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-11-amazon-corretto/bin/java /usr/bin/java && \
