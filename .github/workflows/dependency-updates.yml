@@ -17,7 +17,7 @@ jobs:
           sed -i "s|FROM debian:.*|FROM debian:$DEBIAN_VERSION|" ./Dockerfile
           echo "version=$DEBIAN_VERSION" >> $GITHUB_OUTPUT
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           signoff: true
           delete-branch: true
@@ -45,7 +45,7 @@ jobs:
           sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION|" ./Dockerfile
           echo "version=$MAVEN_VERSION" >> $GITHUB_OUTPUT
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           signoff: true
           delete-branch: true
@@ -73,7 +73,7 @@ jobs:
           sed -i "s|ARG MAVEN4_VERSION=.*|ARG MAVEN4_VERSION=$MAVEN4_VERSION|" ./Dockerfile
           echo "version=$MAVEN4_VERSION" >> $GITHUB_OUTPUT
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           signoff: true
           delete-branch: true
@@ -89,7 +89,7 @@ jobs:
       - name: update setup-sshd
         run: curl -sL https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd -o setup-sshd
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           signoff: true
           delete-branch: true
