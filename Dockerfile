@@ -3,7 +3,7 @@ FROM alpine:3.17.3
 ARG MAVEN_VERSION=3.9.1
 ARG MAVEN4_VERSION=4.0.0-alpha-5
 
-COPY --from=docker:23.0.5-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=docker:23.0.6-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
 COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
 
 RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
