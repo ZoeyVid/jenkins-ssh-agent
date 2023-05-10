@@ -1,4 +1,4 @@
-FROM alpine:3.17.3
+FROM alpine:3.18.0
 
 ARG MAVEN_VERSION=3.9.1
 ARG MAVEN4_VERSION=4.0.0-alpha-5
