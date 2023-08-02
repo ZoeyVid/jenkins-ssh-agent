@@ -8,7 +8,7 @@ COPY setup-sshd.sh /usr/local/bin/setup-sshd.sh
 
 RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
-    apk add --no-cache ca-certificates tzdata bash git git-lfs netcat-openbsd openssh-server \
+    apk add --no-cache ca-certificates tzdata tini bash git git-lfs netcat-openbsd openssh-server \
                        amazon-corretto-8 \
                        amazon-corretto-11 \
                        amazon-corretto-17 \
@@ -31,5 +31,5 @@ RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazon
 
 WORKDIR /root
 ENV JENKINS_AGENT_HOME=/root
-ENTRYPOINT ["setup-sshd.sh"]
+ENTRYPOINT ["tini", "--", "setup-sshd.sh"]
 HEALTHCHECK CMD nc -z localhost 22 || exit 1
