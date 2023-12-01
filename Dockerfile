@@ -12,10 +12,10 @@ RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazon
                        amazon-corretto-8 \
                        amazon-corretto-11 \
                        amazon-corretto-17 \
-                       amazon-corretto-20 && \
+                       amazon-corretto-21 && \
     mkdir -p /var/run/sshd /root/jdk/bin && \
     rm -rf /usr/bin/java && \
-    ln -s /usr/lib/jvm/java-17-amazon-corretto/bin/java /usr/bin/java && \
+    ln -s /usr/lib/jvm/java-21-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-17-amazon-corretto/bin/java /root/jdk/bin/java && \
     wget https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
     mv /usr/local/bin/apache-maven-"$MAVEN_VERSION" /usr/local/bin/mvn && \
