@@ -1,6 +1,6 @@
 FROM alpine:3.18.5
 
-ARG MAVEN_VERSION=3.9.5
+ARG MAVEN_VERSION=3.9.6
 ARG MAVEN4_VERSION=4.0.0-alpha-8
 
 COPY --from=docker:23.0.6-cli-alpine3.17 /usr/local/bin/docker /usr/local/bin/docker
