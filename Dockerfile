@@ -16,7 +16,7 @@ RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazon
     mkdir -p /var/run/sshd /root/jdk/bin && \
     rm -rf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-21-amazon-corretto/bin/java /usr/bin/java && \
-    ln -s /usr/lib/jvm/java-17-amazon-corretto/bin/java /root/jdk/bin/java && \
+    ln -s /usr/lib/jvm/java-21-amazon-corretto/bin/java /root/jdk/bin/java && \
     wget https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
     mv /usr/local/bin/apache-maven-"$MAVEN_VERSION" /usr/local/bin/mvn && \
     wget https://dlcdn.apache.org/maven/maven-4/"$MAVEN4_VERSION"/binaries/apache-maven-"$MAVEN4_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
