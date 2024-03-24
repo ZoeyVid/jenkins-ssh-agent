@@ -4,14 +4,16 @@ on:
     branches:
       - develop
     paths:
-      - Dockerfile
-      - setup-sshd.sh
       - .github/workflows/docker.yml
+      - sshd_config
+      - Dockerfile
+      - start.sh
   pull_request:
     paths:
-      - Dockerfile
-      - setup-sshd.sh
       - .github/workflows/docker.yml
+      - sshd_config
+      - Dockerfile
+      - start.sh
   workflow_dispatch:
 jobs:
   build:

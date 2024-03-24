@@ -1,0 +1,17 @@
+Port 2222
+MaxSessions 2
+MaxAuthTries 1
+AllowUsers jenkins
+PermitRootLogin no
+PermitEmptyPasswords no
+PubkeyAuthentication yes
+PasswordAuthentication no
+Subsystem sftp internal-sftp
+AuthenticationMethods publickey
+KexAlgorithms ecdh-sha2-nistp521
+ChallengeResponseAuthentication no
+AuthorizedKeysFile .ssh/authorized_keys
+PidFile sshd.pid
+HostKey /tmp/etc/ssh/ssh_host_rsa_key
+HostKey /tmp/etc/ssh/ssh_host_ecdsa_key
+HostKey /tmp/etc/ssh/ssh_host_ed25519_key

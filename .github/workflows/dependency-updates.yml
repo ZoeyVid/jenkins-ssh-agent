@@ -61,19 +61,3 @@ jobs:
           branch: update-maven4-version
           title: update maven4 version to ${{ steps.update.outputs.version }}
           body: update maven4 version to ${{ steps.update.outputs.version }}
-  setup-sshd-update:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: update setup-sshd
-        run: curl -sL https://raw.githubusercontent.com/jenkinsci/docker-ssh-agent/master/setup-sshd -o setup-sshd
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          signoff: true
-          delete-branch: true
-          commit-message: update setup-sshd
-          branch: update-setup-sshd
-          title: update setup-sshd
-          body: update setup-sshd
