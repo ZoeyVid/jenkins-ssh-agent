@@ -1,6 +1,8 @@
 name: dependency-updates
 on:
   push:
+    branches:
+      - develop
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
@@ -18,8 +20,8 @@ jobs:
               | cut -d/ -f3 \
               | sort -V \
               | tail -1 \
-              | sed -E "s/\^\{\}//" \
-              | sed -E "s/maven-//"
+              | sed "s|\^{}||g" \
+              | sed "s|maven-||g"
           )"
           curl -sfL https://dlcdn.apache.org/maven/maven-3/"${MAVEN_VERSION}"/binaries/apache-maven-"${MAVEN_VERSION}"-bin.tar.gz || exit 1
           sed -i "s|ARG MAVEN_VERSION=.*|ARG MAVEN_VERSION=$MAVEN_VERSION|" ./Dockerfile
@@ -46,8 +48,8 @@ jobs:
               | cut -d/ -f3 \
               | sort -V \
               | tail -1 \
-              | sed -E "s/\^\{\}//" \
-              | sed -E "s/maven-//"
+              | sed "s|\^{}||g" \
+              | sed "s|maven-||g"
           )"
           curl -sfL https://dlcdn.apache.org/maven/maven-4/"${MAVEN4_VERSION}"/binaries/apache-maven-"${MAVEN4_VERSION}"-bin.tar.gz || exit 1
           sed -i "s|ARG MAVEN4_VERSION=.*|ARG MAVEN4_VERSION=$MAVEN4_VERSION|" ./Dockerfile
