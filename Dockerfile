@@ -35,3 +35,4 @@ USER jenkins
 WORKDIR /tmp
 ENTRYPOINT ["tini", "--", "start.sh"]
 HEALTHCHECK CMD nc -z localhost 2222 || exit 1
+EXPOSE 2222/tcp
