@@ -1,9 +1,9 @@
 FROM alpine:3.19.1
-
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 ARG MAVEN_VERSION=3.9.6
 ARG MAVEN4_VERSION=4.0.0-alpha-13
 
-RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
+RUN wget -q https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
     apk upgrade --no-cache -a && \
     apk add --no-cache ca-certificates tzdata tini shadow openssl \
@@ -18,9 +18,9 @@ RUN wget https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazon
     rm -vrf /usr/bin/java && \
     ln -s /usr/lib/jvm/java-21-amazon-corretto/bin/java /usr/bin/java && \
     ln -s /usr/lib/jvm/java-21-amazon-corretto/bin/java /tmp/jdk/bin/java && \
-    wget https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
+    wget -q https://dlcdn.apache.org/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
     mv /usr/local/bin/apache-maven-"$MAVEN_VERSION" /usr/local/bin/mvn && \
-    wget https://dlcdn.apache.org/maven/maven-4/"$MAVEN4_VERSION"/binaries/apache-maven-"$MAVEN4_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
+    wget -q https://dlcdn.apache.org/maven/maven-4/"$MAVEN4_VERSION"/binaries/apache-maven-"$MAVEN4_VERSION"-bin.tar.gz -O - | tar xz -C /usr/local/bin && \
     mv /usr/local/bin/apache-maven-"$MAVEN4_VERSION" /usr/local/bin/mvn4 && \
     useradd -d /tmp -Ms /bin/ash -u 1000 jenkins && \
     echo "jenkins:$(openssl rand -base64 12)" | chpasswd && \
