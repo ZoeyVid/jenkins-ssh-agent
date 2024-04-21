@@ -1,5 +1,7 @@
 # jenkins-ssh-agent
 
+Docker image containing ssh, git, maven and multiple amazon corretto java versions. It should be used as a jenkins ssh agent.
+
 ## Paths:
 - /usr/bin/git
 - /usr/bin/git-lfs
