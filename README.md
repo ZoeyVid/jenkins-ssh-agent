@@ -10,7 +10,7 @@ Docker image containing ssh, git, maven and multiple amazon corretto java versio
 - /usr/lib/jvm/java-8-amazon-corretto
 - /usr/lib/jvm/java-11-amazon-corretto
 - /usr/lib/jvm/java-17-amazon-corretto
-- /usr/lib/jvm/java-20-amazon-corretto
+- /usr/lib/jvm/java-21-amazon-corretto
 
 # connect:
 - port: 2222
