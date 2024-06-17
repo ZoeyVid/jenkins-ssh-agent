@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:labs
 FROM alpine:3.20.0
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-ARG MAVEN_VERSION=3.9.7
+ARG MAVEN_VERSION=3.9.8
 ARG MAVEN4_VERSION=4.0.0-beta-3
 
 RUN wget -q https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
