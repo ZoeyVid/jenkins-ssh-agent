@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:labs
-FROM alpine:3.22.0
+FROM alpine:3.22.1
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 ARG MAVEN_VERSION=3.9.9
 ARG MAVEN4_VERSION=4.0.0-rc-3
