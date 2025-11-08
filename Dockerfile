@@ -2,7 +2,7 @@
 FROM alpine:3.22.2
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 ARG MAVEN_VERSION=3.9.11
-ARG MAVEN4_VERSION=4.0.0-rc-4
+ARG MAVEN4_VERSION=4.0.0-rc-5
 
 RUN wget -q https://apk.corretto.aws/amazoncorretto.rsa.pub -O /etc/apk/keys/amazoncorretto.rsa.pub && \
     echo "https://apk.corretto.aws" | tee -a /etc/apk/repositories && \
